@@ -1,0 +1,4 @@
+---
+- name: postgresql
+  src: git+https://github.com/MkhlNzrn/roles.git
+  version: main

@@ -1,0 +1,26 @@
+- name: Install required packages for PostgreSQL master
+  hosts: postgresql_master
+  become: true
+  tasks:
+    - name: Install prerequisite packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - acl
+        - python3-psycopg2
+
+- name: Install and Configure PostgreSQL Master
+  hosts: postgresql_master
+  become: true
+  tasks:
+    - import_tasks: tasks/configure-master.yml
+  tags: master
+
+- name: Install and Configure PostgreSQL Replica
+  hosts: postgresql_replica
+  become: true
+  tasks:
+    - import_tasks: tasks/configure-replica.yml
+  tags: replica
+
